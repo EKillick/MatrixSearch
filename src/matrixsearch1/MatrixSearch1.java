@@ -32,6 +32,38 @@ public class MatrixSearch1 {
     return false;
     }
 
+    /**
+     * A method that searches an array sorted by row but not by column
+     * @param num - number being searched for
+     * @param multi - array to be searched
+     * @return - true if number is in matrix, false otherwise
+     */
+    public static boolean matrixSearch2(int num, int[][] multi){
+        // Start half way through the array
+        int min = 0;
+        int max = multi.length - 1;
+        int mid = ((max-min)/2);
+        
+        
+        for (int i = 0; i < multi.length; i++){
+            if (num >= min && num <= max){
+                while(min <= max){
+                    mid = ((max-min)/2);
+                    if (multi[i][mid] == num){
+                        return true;
+                    }
+                    else if (multi[i][mid] > num){
+                        max = mid--;
+                    }
+                    else{
+                        min = mid++;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
     public static void main(String[] args) {
         int[][] multi = new int[][]{
             {1, 3, 7, 8, 8, 9, 12},
@@ -49,7 +81,7 @@ public class MatrixSearch1 {
         switch(question){
             case 1: System.out.println(matrixSearch1(num, multi));
                     break;
-            case 2: System.out.println("Not yet implemented");
+            case 2: System.out.println(matrixSearch2(num, multi));
                     break;
             case 3: System.out.println("Not yet implemented");
                     break;
