@@ -64,6 +64,30 @@ public class MatrixSearch1 {
         return false;
     }
     
+    /**
+     * 
+     * @param num
+     * @param multi
+     * @return 
+     */
+    public static boolean matrixSearch3(int num, int[][] multi){
+        int col = multi.length - 1;
+        int row = 0;
+        while(row < (multi.length - 1) && col > 0){
+            if (multi[row][col] == num){
+                return true;
+            }
+            else if (multi[row][col] > num){
+                col--;
+            }
+            else{
+                row++;
+            }
+        }
+        return false;      
+    }   
+    
+    
     public static void main(String[] args) {
         int[][] multi = new int[][]{
             {1, 3, 7, 8, 8, 9, 12},
@@ -83,7 +107,7 @@ public class MatrixSearch1 {
                     break;
             case 2: System.out.println(matrixSearch2(num, multi));
                     break;
-            case 3: System.out.println("Not yet implemented");
+            case 3: System.out.println(matrixSearch3(num, multi));
                     break;
             default: break;
         }  
