@@ -6,6 +6,7 @@
 package matrixsearch1;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -110,6 +111,21 @@ public class MatrixSearch1 {
         return multi;
     }
 
+    private static int[][] generateQ2Matrix(int n) {
+        int[][] multi = new int[n][n];
+        int num = 1;
+
+        for (int row = 0; row < n; row++) {
+            num = 1;
+            for (int column = 0; column < n; column++){
+                multi[row][column] = num;
+                num++;
+                num++;
+            }
+        }
+        return multi;
+    }
+
     public static void main(String[] args) {
         System.out.print("Question number: ");
         Scanner scan = new Scanner(System.in);
@@ -179,12 +195,12 @@ public class MatrixSearch1 {
                         num = (n * n) + 1;
                         break;
                     case 2:
-                        matrix = generateLinearMatrix(n);
-                        System.out.println("Not Yet Implemented");
+                        matrix = generateQ2Matrix(n);
+                        num = 2;
                         break;
                     case 3:
                         matrix = generateLinearMatrix(n);
-                        num = (n * n) - n + 1;
+                        num = (n * n) + 1;
                         break;
                     default:
                         matrix = generateLinearMatrix(n);
@@ -193,7 +209,7 @@ public class MatrixSearch1 {
 
                 for (int j = 0; j < reps; j++) {
                     long t1 = System.nanoTime();
-                    matrixSearch3(matrix, matrix.length, num);
+                    matrixSearch2(matrix, matrix.length, num);
                     long t2 = System.nanoTime() - t1;
                     sum += (double) t2 / 1000000.0;
                     sumSquared += (t2 / 1000000.0) * (t2 / 1000000.0);
