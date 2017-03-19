@@ -20,6 +20,7 @@ public class MatrixSearch1 {
 
     /**
      * A basic search method that searches an unsorted matrix linearly
+     *
      * @param num - number being searched for
      * @param size - size of the array being searched
      * @param multi - array to be searched
@@ -41,6 +42,7 @@ public class MatrixSearch1 {
 
     /**
      * A method that searches an array sorted by row but not by column
+     *
      * @param num - number being searched for
      * @param size - size of the array being searched
      * @param multi - array to be searched
@@ -94,13 +96,13 @@ public class MatrixSearch1 {
 //        System.out.println(num + " was not found");
         return false;
     }
-    
-    private static int[][] generateMatrix(int n){
+
+    private static int[][] generateLinearMatrix(int n) {
         int[][] multi = new int[n][n];
         int num = 1;
-        
-        for (int row = 0; row < n; row++){
-            for (int column = 0; column < n; column++){
+
+        for (int row = 0; row < n; row++) {
+            for (int column = 0; column < n; column++) {
                 multi[row][column] = num;
                 num++;
             }
@@ -109,6 +111,9 @@ public class MatrixSearch1 {
     }
 
     public static void main(String[] args) {
+        System.out.print("Question number: ");
+        Scanner scan = new Scanner(System.in);
+        int question = scan.nextInt();
         int[][] multi = new int[][]{
             {1, 3, 7, 8, 8, 9, 12},
             {2, 4, 8, 9, 10, 30, 38},
@@ -118,11 +123,8 @@ public class MatrixSearch1 {
             {13, 15, 50, 100, 110, 112, 120},
             {22, 27, 61, 112, 119, 138, 153}};
         int[] testNumbers = new int[]{4, 12, 110, 5, 6, 111};
-        
+
         if (DEBUG) {
-            System.out.print("Question number: ");
-            Scanner scan = new Scanner(System.in);
-            int question = scan.nextInt();
             System.out.print("Enter a number to search for: ");
             int num = scan.nextInt();
             switch (question) {
@@ -138,12 +140,9 @@ public class MatrixSearch1 {
                 default:
                     break;
             }
-        } 
+        }
         if (TEST) {
             for (int num : testNumbers) {
-                System.out.print("Question number: ");
-                Scanner scan = new Scanner(System.in);
-                int question = scan.nextInt();
                 switch (question) {
                     case 1:
                         System.out.println(matrixSearch1(multi, multi.length, num));
@@ -159,36 +158,56 @@ public class MatrixSearch1 {
                 }
             }
         }
-        if (WORST){
-            int size[] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 
+        if (WORST) {
+            int size[] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300,
                 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000};
             DecimalFormat df = new DecimalFormat("0.00000");
             System.out.println("Size" + "\t\t" + "Mean" + "\t\t" + "Standard Deviation");
+            int matrix[][];
+            int num = 0;
+
             for (int i = 0; i < size.length; i++) {
+
                 int n = size[i];
-                int num = 0;
                 int reps = 1000;
-                double sum = 0, s = 0;
+                double sum = 0;
                 double sumSquared = 0;
-                num = (n * n) + 1;
-                int matrix[][] = generateMatrix(n);
+
+                switch (question) {
+                    case 1:
+                        matrix = generateLinearMatrix(n);
+                        num = (n * n) + 1;
+                        break;
+                    case 2:
+                        matrix = generateLinearMatrix(n);
+                        System.out.println("Not Yet Implemented");
+                        break;
+                    case 3:
+                        matrix = generateLinearMatrix(n);
+                        num = (n * n) - n + 1;
+                        break;
+                    default:
+                        matrix = generateLinearMatrix(n);
+                        break;
+                }
 
                 for (int j = 0; j < reps; j++) {
                     long t1 = System.nanoTime();
-                    matrixSearch1(matrix, matrix.length, num);
+                    matrixSearch3(matrix, matrix.length, num);
                     long t2 = System.nanoTime() - t1;
                     sum += (double) t2 / 1000000.0;
                     sumSquared += (t2 / 1000000.0) * (t2 / 1000000.0);
                 }
-                
+
                 double mean = sum / reps;
                 double variance = sumSquared / reps - (mean * mean);
                 double stdDev = Math.sqrt(variance);
-                
+
                 System.out.println(n + "\t\t" + df.format(mean) + "\t\t" + df.format(stdDev));
             }
 
         }
+
     }
 
 }
