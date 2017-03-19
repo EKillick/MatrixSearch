@@ -5,6 +5,7 @@
  */
 package matrixsearch1;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 /**
@@ -161,7 +162,8 @@ public class MatrixSearch1 {
         if (WORST){
             int size[] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 
                 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000};
-            
+            DecimalFormat df = new DecimalFormat("0.00000");
+            System.out.println("Size" + "\t\t" + "Mean" + "\t\t" + "Standard Deviation");
             for (int i = 0; i < size.length; i++) {
                 int n = size[i];
                 int num = 0;
@@ -182,7 +184,8 @@ public class MatrixSearch1 {
                 double mean = sum / reps;
                 double variance = sumSquared / reps - (mean * mean);
                 double stdDev = Math.sqrt(variance);
-
+                
+                System.out.println(n + "\t\t" + df.format(mean) + "\t\t" + df.format(stdDev));
             }
 
         }
